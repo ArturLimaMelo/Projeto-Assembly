@@ -1,7 +1,4 @@
-# Dados de imagem gerados automaticamente
-# Arquivo de origem: cenario2.png
-# Dimensoes: 128 x 64
-# Total de pixels: 8192
+
 .data
 imagem:
     .word 0x000E151C, 0x000F151D, 0x000F151C, 0x000F151C, 0x000F151C, 0x000E141B, 0x000F151C, 0x000F151C
@@ -1029,9 +1026,6 @@ imagem:
     .word 0x00FFFFFF, 0x000F151D, 0x000F141C, 0x000F151C, 0x000E141C, 0x000E141B, 0x000F141B, 0x000F151C
     .word 0x000F151C, 0x000F151C, 0x000F151C, 0x0010151C, 0x000F151C, 0x000E141B, 0x000E141B, 0x000E141B
 
-# Para desenhar, percorra os pixels em ordem:
-# quantidade de pixels = 8192
-# largura = 128; altura = 64
 
 .text
 main:
@@ -1040,6 +1034,7 @@ forCenario:
 	beq $9, $0, fimForCenario
 	lw $4, 0($8)
 	sw $4, 0($8)
+	sw $4, 32768($8)
 	addi $8, $8, 4
 	addi $9, $9, -1
 	j forCenario
@@ -1049,6 +1044,46 @@ fimForCenario:
 desenharCenario:
 	lui $8, 0x1001
 	addi $9, $0, 8192 #Qntd. de Unidades gráficas
-	jal forCenario
+	jal forCenario	
+	
+desenharPlayer:
+	lui $8, 0x1001
+	addi $8, $8, 30440
+	addi $9, $9, 10
+	addi $4, $0, 0x000000
+	addi $12, $0, 0xFFFFFF
+	addi $11, $0, 2
+bordaHorizontalPlayer:
+	beq $9, $0, pulaLinha
+	sw $4, 0($8)
+	addi $9, $9, -1
+	addi $8, $8, 4
+	j bordaHorizontalPlayer
+pintaPreto:
+	addi $11, $11, -1
+	addi $4, $0, 0x000000
+	sw $4, 0($8)
+pulaLinha:
+	beq $11, $0, pintaUltimaLinha
+	beq $4, $12, pintaPreto
+	addi $8, $8, 468
+	sw $4, 0($8)
+	addi $9, $0, 10
+	addi $8, $8, 4
+	addi $4, $0, 0xFFFFFF
+	j bordaHorizontalPlayer
+pintaUltimaLinha:
+	
+	addi $8, $8, 472
+	sw $4, 0($8)
+	addi $9, $0, 9
+pintaUltimaLinhaFor:
+	beq $9, $0, endGame
+	addi $8, $8, 4
+	sw $4, 0($8)
+	addi $9, $9, -1
+	j pintaUltimaLinhaFor
+	
+endGame:
 	addi $2, $0, 10
 	syscall
