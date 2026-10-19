@@ -952,8 +952,8 @@ imagem:
     .word 0x000B2143, 0x000B2243, 0x000A2142, 0x000B2142, 0x000A2142, 0x000A2143, 0x000A2042, 0x000A2143
     .word 0x000A2042, 0x000A2042, 0x000A2042, 0x000A2042, 0x000A2041, 0x000A2041, 0x000A2042, 0x000A2143
     .word 0x000B2142, 0x000B2042, 0x000A2041, 0x000B2041, 0x000A2040, 0x000A2140, 0x000A2040, 0x000A2041
-    .word 0x000B2142, 0x000A2146, 0x000E151C, 0x000E151D, 0x000E151E, 0x000F151D, 0x000F161E, 0x0010171E
-    .word 0x0010161F, 0x000F151E, 0x000E151E, 0x000F151E, 0x00092349, 0x000A2143, 0x00091F40, 0x000A1F3F
+    .word 0x000B2142, 0x000A2041, 0x000A2042, 0x000A2143, 0x000B2142, 0x000B2042, 0x000A2041, 0x000B2041
+    .word 0x000A2040, 0x000A2140, 0x000A2040, 0x000A2041, 0x000B2142, 0x000A2143, 0x00091F40, 0x000A1F3F
     .word 0x000A2040, 0x000A2040, 0x000A2040, 0x000A1F3F, 0x000A1F40, 0x000A2040, 0x000B2142, 0x000A2042
     .word 0x000A2041, 0x000A2042, 0x000A2041, 0x000A2042, 0x00092042, 0x00091F41, 0x000A2042, 0x000B2143
     .word 0x000A2042, 0x000A2042, 0x000B2142, 0x000A2143, 0x000B2142, 0x000B2142, 0x000B2142, 0x000B2142
@@ -968,8 +968,8 @@ imagem:
     .word 0x000C2243, 0x000B2142, 0x000B2142, 0x000B2141, 0x000B2142, 0x000B2142, 0x000B2144, 0x000A2042
     .word 0x00091E43, 0x00081E42, 0x00091E41, 0x00091E41, 0x00091E42, 0x00091E41, 0x000C2247, 0x000C2345
     .word 0x000C2143, 0x000B2143, 0x000B2142, 0x000B2040, 0x000B2040, 0x000B2040, 0x000A2040, 0x000B2141
-    .word 0x000A203E, 0x0010171F, 0x00FCFCFC, 0x00FDFDFC, 0x00FCFCFC, 0x00FDFCFD, 0x00FDFCFC, 0x00FDFDFD
-    .word 0x00FDFCFD, 0x00FCFCFC, 0x00FDFDFD, 0x00FCFBFC, 0x0010161D, 0x000B2040, 0x000B2142, 0x000A2040
+    .word 0x000A203E, 0x00091E41, 0x000C2247, 0x000C2345, 0x000C2143, 0x000B2143, 0x000B2142, 0x000B2040
+    .word 0x000B2040, 0x000B2040, 0x000A2040, 0x000B2141, 0x000A203E, 0x000B2040, 0x000B2142, 0x000A2040
     .word 0x000B2040, 0x000B2041, 0x000B2141, 0x000B2141, 0x000B2041, 0x000C2141, 0x000B2142, 0x000B2245
     .word 0x00091D3C, 0x00081C3F, 0x00091E42, 0x00091E42, 0x00091E40, 0x00091E42, 0x00091E42, 0x000A1F43
     .word 0x000A1E41, 0x000B2043, 0x000B2143, 0x000C2142, 0x000B2142, 0x000C2344, 0x000B2244, 0x000B2143
@@ -984,8 +984,8 @@ imagem:
     .word 0x000A244B, 0x000A234A, 0x000A244A, 0x000B244A, 0x000A244A, 0x000A2348, 0x00082855, 0x00082856
     .word 0x00062756, 0x0005295A, 0x00052554, 0x00062655, 0x00062755, 0x00072550, 0x00082753, 0x000A2852
     .word 0x000B254C, 0x000A234A, 0x0009244B, 0x0009244B, 0x000A244B, 0x0009244B, 0x0009234A, 0x000A2348
-    .word 0x000B244B, 0x00111822, 0x0096979A, 0x00D4D8DF, 0x00D5DAE1, 0x00D5D8DF, 0x00D6DAE1, 0x00D5D9E0
-    .word 0x00D5D9E0, 0x00D3D7DF, 0x00D3D8DF, 0x0096999F, 0x00131B24, 0x000B2750, 0x000A244B, 0x0009244D
+    .word 0x000B244B, 0x00072550, 0x00082753, 0x000A2852, 0x000B254C, 0x000A234A, 0x0009244B, 0x0009244B
+    .word 0x000A244B, 0x0009244B, 0x0009234A, 0x000A2348, 0x000B244B, 0x000B2750, 0x000A244B, 0x0009244D
     .word 0x0009244D, 0x000A254D, 0x000A244B, 0x000A244A, 0x000A244C, 0x000A244A, 0x0009254C, 0x000A2756
     .word 0x00082959, 0x00072653, 0x00072755, 0x00062552, 0x00072654, 0x00082754, 0x00072754, 0x00072856
     .word 0x00082650, 0x00082651, 0x0009234A, 0x000A2349, 0x00092348, 0x000A244A, 0x00092650, 0x000A244B
@@ -1026,7 +1026,6 @@ imagem:
     .word 0x00FFFFFF, 0x000F151D, 0x000F141C, 0x000F151C, 0x000E141C, 0x000E141B, 0x000F141B, 0x000F151C
     .word 0x000F151C, 0x000F151C, 0x000F151C, 0x0010151C, 0x000F151C, 0x000E141B, 0x000E141B, 0x000E141B
 
-
 .text
 main:
 	j desenharCenario
@@ -1044,15 +1043,43 @@ fimForCenario:
 desenharCenario:
 	lui $8, 0x1001
 	addi $9, $0, 8192 #Qntd. de Unidades gráficas
-	jal forCenario	
-	
-desenharPlayer:
+	jal forCenario
 	lui $8, 0x1001
 	addi $8, $8, 30440
+	addi $14, $0, 0
+controlarPlayer:
+	jal nulltime
+	
+	lui $14, 0xFFFF
+	lw $17, 0($14)
+	andi $17, $17, 1
+	beq $17, $0, desenharPlayer
+	
+	lw $17, 4($14)
+	addi $15, $0, 32
+        beq $17, $15, endGame
+     
+        addi $15, $0, 'a'
+        beq $15, $17, digA
+     
+        addi $15, $0, 'd'
+        beq $15, $17, digD
+        j desenharPlayer
+        
+digA:   addi $8, $8, -4
+        j desenharPlayer
+     
+digD:   addi $8, $8, 4
+        j desenharPlayer  
+		
+# REG USADOS: 8, 9, 12, 11, 13
+
+desenharPlayer:
 	addi $9, $9, 10
 	addi $4, $0, 0x000000
 	addi $12, $0, 0xFFFFFF
 	addi $11, $0, 2
+	addi $13, $0, 1
 bordaHorizontalPlayer:
 	beq $9, $0, pulaLinha
 	sw $4, 0($8)
@@ -1064,8 +1091,9 @@ pintaPreto:
 	addi $4, $0, 0x000000
 	sw $4, 0($8)
 pulaLinha:
-	beq $11, $0, pintaUltimaLinha
-	beq $4, $12, pintaPreto
+	bne $4, $0, pintaPreto
+	ble $11, $0, pintaUltimaLinha
+	beq $11, $13, pintaLinhaCinza
 	addi $8, $8, 468
 	sw $4, 0($8)
 	addi $9, $0, 10
@@ -1073,17 +1101,38 @@ pulaLinha:
 	addi $4, $0, 0xFFFFFF
 	j bordaHorizontalPlayer
 pintaUltimaLinha:
-	
+	addi $4, $0, 0x000000
 	addi $8, $8, 472
 	sw $4, 0($8)
 	addi $9, $0, 9
 pintaUltimaLinhaFor:
-	beq $9, $0, endGame
+	beq $9, $0, endDesenharPlayer
 	addi $8, $8, 4
 	sw $4, 0($8)
 	addi $9, $9, -1
 	j pintaUltimaLinhaFor
+pintaLinhaCinza:
+	addi $9, $0, 10
+	addi $8, $8, 468
+	sw $4, 0($8)
+	addi $8, $8, 4
+	addi $4, $0, 0xDDDDDD
+	addi $11, $11, -1
+	j bordaHorizontalPlayer
+endDesenharPlayer:
+	addi $8, $8, -1572
+	j controlarPlayer
 	
 endGame:
 	addi $2, $0, 10
 	syscall
+	
+nulltime:
+	addi $25, $0, 4000
+ntfor:  beq $25, $0, ntfim
+        nop
+        nop
+        addi $25, $25, -1
+        j ntfor        
+ntfim: jr $31
+	
