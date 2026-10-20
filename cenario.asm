@@ -1028,111 +1028,336 @@ imagem:
 
 .text
 main:
-	j desenharCenario
-forCenario:
-	beq $9, $0, fimForCenario
-	lw $4, 0($8)
-	sw $4, 0($8)
-	sw $4, 32768($8)
-	addi $8, $8, 4
-	addi $9, $9, -1
-	j forCenario
-fimForCenario:
-	jr $31
-# REG USADOS: 8, 9
-desenharCenario:
-	lui $8, 0x1001
-	addi $9, $0, 8192 #Qntd. de Unidades gráficas
-	jal forCenario
-	lui $8, 0x1001
-	addi $8, $8, 30440
-	addi $14, $0, 0
-controlarPlayer:
-	jal nulltime
-	
-	lui $14, 0xFFFF
-	lw $17, 0($14)
-	andi $17, $17, 1
-	beq $17, $0, desenharPlayer
-	
-	lw $17, 4($14)
-	addi $15, $0, 32
-        beq $17, $15, endGame
-     
-        addi $15, $0, 'a'
-        beq $15, $17, digA
-     
-        addi $15, $0, 'd'
-        beq $15, $17, digD
-        j desenharPlayer
-        
-digA:   addi $8, $8, -4
-        j desenharPlayer
-     
-digD:   addi $8, $8, 4
-        j desenharPlayer  
-		
-# REG USADOS: 8, 9, 12, 11, 13
+    j desenharCenario
 
+# $8  = endereço do pixel atual
+# $9  = quantidade de pixels restantes
+# $4  = cor temporária do pixel
+forCenario:
+    beq $9, $0, fimForCenario
+
+    lw $4, 0($8)
+    sw $4, 0($8)
+    sw $4, 32768($8)
+
+    addi $8, $8, 4
+    addi $9, $9, -1
+
+    j forCenario
+
+fimForCenario:
+    jr $31
+
+
+
+# $8  = posição do jogador
+# $9  = contador de pixels
+# $16 = posição atual da bola
+# $18 = posição inicial do jogador
+# $19 = posição inicial da bola
+# $20 = direção da bola
+
+desenharCenario:
+    # Posição inicial da bola
+    lui $16, 0x1001
+    addi $16, $16, 26876
+
+    lui $8, 0x1001
+    addi $9, $0, 8192
+
+    jal forCenario
+
+    # Posição do jogador
+    lui $8, 0x1001
+    addi $8, $8, 30440
+
+    # Posição inicial do jogador
+    addi $18, $8, 0
+
+    # Posição inicial da bola
+    addi $19, $16, 0
+
+    # Velocidade horizontal da bola
+    addi $20, $0, 4
+
+    # Direção vertical da bola
+    addi $21, $0, 0
+    j controlarPlayer
+
+
+# $8  = endereço atual do jogador
+# $14 = endereço do dispositivo de teclado
+# $15 = limite temporário ou código de tecla
+# $17 = estado do teclado ou tecla pressionada
+# $18 = posição inicial do jogador
+
+controlarPlayer:
+    jal nulltime
+
+    lui $14, 0xFFFF
+
+    lw $17, 0($14)
+    andi $17, $17, 1
+
+    beq $17, $0, desenharPlayer
+
+    lw $17, 4($14)
+
+    addi $15, $0, 32
+    beq $17, $15, endGame
+
+    addi $15, $0, 'a'
+    beq $17, $15, digA
+
+    addi $15, $0, 'd'
+    beq $17, $15, digD
+
+    j desenharPlayer
+
+
+digA:
+    addi $15, $18, -156
+    ble $8, $15, desenharPlayer
+
+    addi $8, $8, -4
+    j desenharPlayer
+
+
+digD:
+    addi $15, $18, 164
+    bge $8, $15, desenharPlayer
+
+    addi $8, $8, 4
+    j desenharPlayer
+
+
+# $8  = endereço atual de desenho
+# $4  = cor temporária
+# $9  = contador horizontal
+# $11 = contador de linhas
+# $12 = cor branca
+# $13 = constante 1
 desenharPlayer:
-	addi $9, $9, 10
-	addi $4, $0, 0x000000
-	addi $12, $0, 0xFFFFFF
-	addi $11, $0, 2
-	addi $13, $0, 1
+    addi $9, $9, 10
+
+    # Preto
+    addi $4, $0, 0x000000
+
+    # Branco
+    addi $12, $0, 0xFFFFFF
+
+    # Quantidade de linhas
+    addi $11, $0, 2
+
+    # Constante para comparação
+    addi $13, $0, 1
+
+
 bordaHorizontalPlayer:
-	beq $9, $0, pulaLinha
-	sw $4, 0($8)
-	addi $9, $9, -1
-	addi $8, $8, 4
-	j bordaHorizontalPlayer
+    beq $9, $0, pulaLinha
+
+    sw $4, 0($8)
+
+    addi $9, $9, -1
+    addi $8, $8, 4
+
+    j bordaHorizontalPlayer
+
+
 pintaPreto:
-	addi $11, $11, -1
-	addi $4, $0, 0x000000
-	sw $4, 0($8)
+    addi $11, $11, -1
+    addi $4, $0, 0x000000
+
+    sw $4, 0($8)
+
+    lw $4, 32720($8)
+    sw $4, -48($8)
+
+    lw $4, 32772($8)
+    sw $4, 4($8)
+
+    addi $4, $0, 0x000000
+
+
 pulaLinha:
-	bne $4, $0, pintaPreto
-	ble $11, $0, pintaUltimaLinha
-	beq $11, $13, pintaLinhaCinza
-	addi $8, $8, 468
-	sw $4, 0($8)
-	addi $9, $0, 10
-	addi $8, $8, 4
-	addi $4, $0, 0xFFFFFF
-	j bordaHorizontalPlayer
+    bne $4, $0, pintaPreto
+
+    ble $11, $0, pintaUltimaLinha
+
+    beq $11, $13, pintaLinhaCinza
+
+    lw $4, 32724($8)
+    sw $4, -44($8)
+
+    lw $4, 32768($8)
+    sw $4, 0($8)
+
+    addi $4, $0, 0x000000
+
+    addi $8, $8, 468
+    sw $4, 0($8)
+
+    addi $9, $0, 10
+    addi $8, $8, 4
+
+    addi $4, $0, 0xFFFFFF
+
+    j bordaHorizontalPlayer
+
+
 pintaUltimaLinha:
-	addi $4, $0, 0x000000
-	addi $8, $8, 472
-	sw $4, 0($8)
-	addi $9, $0, 9
+    addi $4, $0, 0x000000
+
+    addi $8, $8, 472
+    sw $4, 0($8)
+
+    addi $9, $0, 9
+
+
 pintaUltimaLinhaFor:
-	beq $9, $0, endDesenharPlayer
-	addi $8, $8, 4
-	sw $4, 0($8)
-	addi $9, $9, -1
-	j pintaUltimaLinhaFor
+    beq $9, $0, endDesenharPlayer
+
+    addi $8, $8, 4
+    sw $4, 0($8)
+
+    addi $9, $9, -1
+
+    j pintaUltimaLinhaFor
+
+
 pintaLinhaCinza:
-	addi $9, $0, 10
-	addi $8, $8, 468
-	sw $4, 0($8)
-	addi $8, $8, 4
-	addi $4, $0, 0xDDDDDD
-	addi $11, $11, -1
-	j bordaHorizontalPlayer
+    addi $9, $0, 10
+
+    addi $8, $8, 468
+    sw $4, 0($8)
+
+    addi $8, $8, 4
+
+    # Cinza
+    addi $4, $0, 0xDDDDDD
+
+    addi $11, $11, -1
+
+    j bordaHorizontalPlayer
+
+
 endDesenharPlayer:
-	addi $8, $8, -1572
-	j controlarPlayer
+    lw $4, 32728($8)
+    sw $4, -40($8)
+
+    lw $4, 32772($8)
+    sw $4, 4($8)
+
+    addi $4, $0, 0x000000
+
+    addi $8, $8, -1572
+
+    j bolaPodeEsquerdaDireita
+
+
+# $15 = limite temporário
+# $16 = posição atual da bola
+# $19 = posição inicial da bola
+# $20 = direção: +4 direita, -4 esquerda
+bolaPodeEsquerdaDireita:
+    # Verifica o limite esquerdo
+    addi $15, $19, -176
+    ble $16, $15, bolaVaiDireita
+
+    # Verifica o limite direito
+    addi $15, $19, 180
+    bge $16, $15, bolaVaiEsquerda
+
+    j bolaPodeCimaBaixo
+
+
+bolaVaiDireita:
+    addi $20, $0, 4
+    j bolaPodeCimaBaixo
+
+
+bolaVaiEsquerda:
+    addi $20, $0, -4
+    j bolaPodeCimaBaixo
+
+
+bolaPodeCimaBaixo:
+	addi $15, $19, 4352
+	bge $16, $15, endGame
+	addi $15, $19, 	-20992
+	ble $16, $15, bolaVaiBaixo
+	j desenharBola
 	
+bolaVaiBaixo:
+	addi $21, $0, 512
+	j desenharBola
+bolaVaiCima:
+	addi $21, $0, -512
+	j desenharBola
+# $4  = cor temporária do cenário
+# $12 = cor branca da bola
+# $16 = posição atual da bola
+# $20 = direção da bola
+desenharBola:
+    # Atualiza a posição
+    add $16, $16, $20
+    add $16, $16, $21
+
+    # Desenha a bola
+    sw $12, 0($16)
+    sw $12, 512($16)
+    sw $12, 508($16)
+    sw $12, 516($16)
+    sw $12, 1024($16)
+
+    # Restaura o cenário ao redor da bola
+    lw $4, 32256($16)
+    sw $4, -512($16)
+
+    lw $4, 32772($16)
+    sw $4, 4($16)
+
+    lw $4, 32764($16)
+    sw $4, -4($16)
+
+    lw $4, 33288($16)
+    sw $4, 520($16)
+
+    lw $4, 33272($16)
+    sw $4, 504($16)
+
+    lw $4, 33796($16)
+    sw $4, 1028($16)
+
+    lw $4, 33788($16)
+    sw $4, 1020($16)
+
+    lw $4, 34304($16)
+    sw $4, 1536($16)
+
+
+    j controlarPlayer
+
 endGame:
-	addi $2, $0, 10
-	syscall
-	
+    addi $2, $0, 10
+    syscall
+
+
+
+# $25 = contador do atraso
+# $31 = endereço de retorno
+
 nulltime:
-	addi $25, $0, 4000
-ntfor:  beq $25, $0, ntfim
-        nop
-        nop
-        addi $25, $25, -1
-        j ntfor        
-ntfim: jr $31
+    addi $25, $0, 4000
+
+ntfor:
+    beq $25, $0, ntfim
+    nop
+
+    addi $25, $25, -1
+
+    j ntfor
+
+ntfim:
+    jr $31
 	
