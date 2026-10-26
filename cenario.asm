@@ -1042,7 +1042,6 @@ forCenario:
 
     addi $8, $8, 4
     addi $9, $9, -1
-
     j forCenario
 
 fimForCenario:
@@ -1085,6 +1084,7 @@ desenharCenario:
     
     #Quantas vezes o jogador clicou espaço
     addi $22, $0, 0
+    j desenharQuadrados
     j controlarPlayer
 
 
@@ -1145,7 +1145,7 @@ digD:
 # $12 = cor branca
 # $13 = constante 1
 desenharPlayer:
-    addi $9, $9, 10
+    addi $9, $9, 0
 
     addi $4, $0, 0x000000
 
@@ -1153,9 +1153,28 @@ desenharPlayer:
 
     # Quantidade de linhas
     addi $11, $0, 2
+    
+    addi $4, $0, 0x010101
+    sw $4, 0($8)
+    sw $4, 4($8)
+    sw $4, 8($8)
+    addi $4, $0, 0x000000
+    sw $4, 12($8)
+    sw $4, 16($8)
+    sw $4, 20($8)
+    sw $4, 24($8)
+    addi $4, $0, 0x020202
+    sw $4, 28($8)
+    sw $4, 32($8)
+    sw $4, 36($8)
+    addi $4, $0, 0x000000
+    addi $8, $8, 40
 
     # Constante para comparação
     addi $13, $0, 1
+    
+    
+    j pulaLinha
 
 
 bordaHorizontalPlayer:
@@ -1337,20 +1356,14 @@ bolaPodeCimaBaixo:
 	lw $15, 0($15)
 	addi $4, $0, 0x000000
 	beq $4, $15, bolaVaiCima
+	addi $4, $0, 0x010101
+	beq $4, $15, bolaVaiCima
+	addi $4, $0, 0x020202
+	beq $4, $15, bolaVaiCima
+	
 	
 	addi $15, $19, 	-20992
 	ble $16, $15, bolaVaiBaixo
-	jal nulltime
-	jal nulltime
-	jal nulltime
-	jal nulltime
-	jal nulltime
-	jal nulltime
-	jal nulltime
-	jal nulltime
-	jal nulltime
-	jal nulltime
-	jal nulltime
 	jal nulltime
 
 
@@ -1361,6 +1374,20 @@ bolaVaiBaixo:
 	j desenharBola
 bolaVaiCima:
 	addi $21, $0, -512
+	addi $4, $0, 0x010101
+	beq $4, $15, bolaVaiEsquerdaCima
+	addi $4, $0, 0x020202
+	beq $4, $15, bolaVaiDireitaCima
+	j desenharBola
+bolaVaiEsquerdaCima:
+	addi $15, $0, -4
+	beq $20, $15, desenharBola
+	addi $20, $20, -4
+	j desenharBola
+bolaVaiDireitaCima:
+	addi $15, $0, 4
+	beq $20, $15, desenharBola
+	addi $20, $20, 4 
 	j desenharBola
 # $4  = cor temporária do cenário
 # $12 = cor branca da bola
@@ -1463,4 +1490,12 @@ ntfor:
 
 ntfim:
     jr $31
+	
+desenharQuadrados:
+	lui $23, 0x1001
+	addi $23, $23, 5708
+	addi $4, $0, 0x0000FF
+	sw $4, 0($23)
+	j controlarPlayer
+desenharQuadradoAzul:
 	
