@@ -4137,11 +4137,7 @@ esperarOpcao:
     beq $17, $15, sairJogo
     li $15, 32
     bne $17, $15, esperarOpcao
-    lui $8, 0x1001
-    addi $8, $8, 512
-    lui $9, 0x1001
-    addi $11, $0, 64
-    j desenharCenario
+    j animarTelaInicial
 
 sairJogo:
     addi $2, $0, 10
@@ -4167,7 +4163,78 @@ fimForCenario:
     jr $31
 
 
+animarTelaInicial:
+    la $10, Cenario
+    li $9, 64
+    li $15, 0
 
+proximaEtapa:
+    beq $9, $0, fimAnimacao
+
+    # Começa na primeira linha da tela
+    lui $8, 0x1001
+    li $12, 63
+
+deslocarLinha:
+    beq $12, $0, inserirLinha
+
+    # Copia a linha seguinte para a linha atual
+    addi $11, $8, 512
+
+    li $13, 128
+
+deslocarPixel:
+    beq $13, $0, proximaLinha
+
+    lw $4, 0($11)
+    sw $4, 0($8)
+
+    addi $11, $11, 4
+    addi $8, $8, 4
+    addi $13, $13, -1
+    j deslocarPixel
+
+proximaLinha:
+    addi $8, $8, -512
+    addi $8, $8, 512
+    addi $12, $12, -1
+    j deslocarLinha
+
+inserirLinha:
+    # Calcula a próxima linha do cenário
+    sll $12, $15, 9
+    addu $11, $10, $12
+
+    # Endereço da última linha da tela
+    lui $8, 0x1001
+    addi $8, $8, 32256
+
+    li $13, 128
+
+copiarLinha:
+    beq $13, $0, aguardarAnimacao
+
+    lw $4, 0($11)
+    sw $4, 0($8)
+
+    addi $11, $11, 4
+    addi $8, $8, 4
+    addi $13, $13, -1
+    j copiarLinha
+
+aguardarAnimacao:
+    li $14, 1
+
+esperar:
+    addi $14, $14, -1
+    bne $14, $0, esperar
+
+    addi $15, $15, 1
+    addi $9, $9, -1
+    j proximaEtapa
+
+fimAnimacao:
+    j desenharCenario
 # $8  = posição do jogador
 # $9  = contador de pixels
 # $16 = posição atual da bola
